@@ -267,6 +267,39 @@
   .form-note.is-error { color: #b3432f; }
   .form-note.is-success { color: var(--growth); }
 
+  .deal-banner {
+    margin: 0 auto 32px;
+    max-width: 460px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border-strong);
+    background: var(--accent-soft-bg);
+    text-align: center;
+  }
+  .deal-banner .deal-tag {
+    display: inline-block;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+    margin-bottom: 6px;
+  }
+  .deal-banner .deal-copy {
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--ink);
+    margin: 0;
+  }
+  .deal-banner .deal-copy strong { color: var(--accent-ink); }
+
+  .fine-print {
+    margin-top: 22px;
+    font-size: 0.72rem;
+    line-height: 1.5;
+    color: var(--ink-faint);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .fill { animation: none; left: 0; width: 100%; opacity: 0.6; }
     .card { animation: none; }
@@ -281,6 +314,11 @@
     <div class="eyebrow">Launching soon</div>
     <h1>AI, made useful for everyday life.</h1>
     <p class="lede">We're building a place to learn AI the practical way — no jargon, no code, just skills you'll actually use. Grocery lists, family calendars, better emails, and spotting a scam call before it costs you money.</p>
+
+    <div class="deal-banner">
+      <span class="deal-tag">🎁 Preorder deal</span>
+      <p class="deal-copy">Buy 6 months of <strong>Unlimited All-Access</strong>, get 6 months <strong>free</strong> — a full year for $222 when you're on the list before doors open.</p>
+    </div>
 
     <div class="loader">
       <div class="track"><div class="fill"></div></div>
@@ -319,6 +357,7 @@
         <a href="https://www.instagram.com/wiseaico/">Instagram</a>
         <a href="https://www.youtube.com/@WiseAICo">YouTube</a>
       </div>
+      <p class="fine-print">All sales are final — we don't offer refunds.</p>
     </div>
   </div>
 
