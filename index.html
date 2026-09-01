@@ -1,5 +1,298 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WiseAI Co — Launching Soon</title>
+  <meta name="description" content="WiseAI Co teaches everyday people to actually use AI — no jargon, no code, just practical skills. Doors open soon.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232f6650'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='34' font-weight='600' fill='%23f8f9f6' text-anchor='middle'%3EW%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <style>
+      :root {
+            --paper: #eef1ec;
+            --paper-raised: #f8f9f6;
+            --ink: #1f2e2b;
+            --ink-soft: #52605a;
+            --ink-faint: #8b968f;
+            --accent: #a3711f;
+            --accent-ink: #7a5417;
+            --accent-soft-bg: #f2e9d4;
+            --growth: #2f6650;
+            --growth-soft: #d9e8e0;
+            --border: rgba(31, 46, 43, 0.14);
+            --border-strong: rgba(31, 46, 43, 0.28);
+            --shadow: 0 1px 2px rgba(31, 46, 43, 0.06), 0 8px 24px -12px rgba(31, 46, 43, 0.18);
+      }
+
+      @media (prefers-color-scheme: dark) {
+            :root {
+                    --paper: #12201c;
+                    --paper-raised: #182a24;
+                    --ink: #eae7dd;
+                    --ink-soft: #a9b6ae;
+                    --ink-faint: #6d7d75;
+                    --accent: #dcaa55;
+                    --accent-ink: #f0c274;
+                    --accent-soft-bg: rgba(220, 170, 85, 0.13);
+                    --growth: #67b696;
+                    --growth-soft: rgba(103, 182, 150, 0.16);
+                    --border: rgba(234, 231, 221, 0.14);
+                    --border-strong: rgba(234, 231, 221, 0.28);
+                    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 28px -14px rgba(0, 0, 0, 0.5);
+            }
+      }
+
+      * { box-sizing: border-box; }
+
+      html, body {
+            height: 100%;
+            margin: 0;
+      }
+
+      body {
+            background: var(--paper);
+            color: var(--ink);
+            font-family: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            -webkit-font-smoothing: antialiased;
+      }
+
+      .card {
+            width: 100%;
+            max-width: 560px;
+            text-align: center;
+            animation: rise 0.7s ease both;
+      }
+
+      @keyframes rise {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+      }
+
+      .mark {
+            width: 52px;
+            height: 52px;
+            margin: 0 auto 22px;
+            border-radius: 14px;
+            background: var(--growth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+      }
+      .mark span {
+            font-family: "Fraunces", Georgia, serif;
+            font-weight: 600;
+            font-size: 1.6rem;
+            color: var(--paper-raised);
+      }
+
+      .eyebrow {
+            font-family: "IBM Plex Mono", ui-monospace, monospace;
+            font-size: 0.78rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent-ink);
+            margin-bottom: 16px;
+      }
+
+      h1 {
+            font-family: "Fraunces", Georgia, serif;
+            font-weight: 600;
+            font-size: clamp(1.7rem, 5vw, 2.35rem);
+            line-height: 1.18;
+            text-wrap: balance;
+            margin: 0 0 16px;
+            color: var(--ink);
+      }
+
+      p.lede {
+            font-size: 1.02rem;
+            line-height: 1.6;
+            color: var(--ink-soft);
+            max-width: 46ch;
+            margin: 0 auto 36px;
+      }
+
+      .loader {
+            max-width: 280px;
+            margin: 0 auto;
+      }
+      .track {
+            height: 6px;
+            border-radius: 3px;
+            background: var(--border);
+            overflow: hidden;
+            position: relative;
+      }
+      .fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 40%;
+            border-radius: 3px;
+            background: linear-gradient(90deg, var(--growth), var(--accent));
+            animation: slide 1.8s ease-in-out infinite;
+      }
+      @keyframes slide {
+            0%   { left: -40%; }
+            100% { left: 100%; }
+      }
+      .loader-label {
+            margin-top: 12px;
+            font-family: "IBM Plex Mono", ui-monospace, monospace;
+            font-size: 0.78rem;
+            letter-spacing: 0.02em;
+            color: var(--ink-faint);
+      }
+
+      .brand-row {
+            margin-top: 28px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            font-family: "Fraunces", Georgia, serif;
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--ink);
+            letter-spacing: 0.01em;
+      }
+      .brand-row .sub {
+            display: block;
+            margin-top: 6px;
+            font-family: "Source Sans 3", sans-serif;
+            font-weight: 400;
+            font-size: 0.85rem;
+            color: var(--ink-faint);
+      }
+
+      .socials {
+            margin-top: 14px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+      }
+      .socials a {
+            font-family: "IBM Plex Mono", ui-monospace, monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.03em;
+            color: var(--ink-soft);
+            text-decoration: none;
+            padding: 6px 12px;
+            border: 1px solid var(--border-strong);
+            border-radius: 999px;
+            transition: color 0.15s ease, border-color 0.15s ease;
+      }
+      .socials a:hover {
+            color: var(--growth);
+            border-color: var(--growth);
+      }
+
+      .lead-form {
+            margin-top: 40px;
+            padding-top: 28px;
+            border-top: 1px solid var(--border);
+            text-align: left;
+      }
+      .lead-form h2 {
+            font-family: "Fraunces", Georgia, serif;
+            font-weight: 600;
+            font-size: 1.15rem;
+            color: var(--ink);
+            margin: 0 0 6px;
+            text-align: center;
+      }
+      .lead-form .form-sub {
+            text-align: center;
+            font-size: 0.88rem;
+            color: var(--ink-soft);
+            margin: 0 0 22px;
+      }
+      .field { margin-bottom: 14px; }
+      .field label {
+            display: block;
+            font-family: "IBM Plex Mono", ui-monospace, monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 6px;
+      }
+      .field input {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-strong);
+            background: var(--paper-raised);
+            color: var(--ink);
+            font-family: "Source Sans 3", sans-serif;
+            font-size: 0.95rem;
+      }
+      .field input:focus {
+            outline: 2px solid var(--growth);
+            outline-offset: 1px;
+      }
+      .field-hidden {
+            position: absolute;
+            left: -9999px;
+            top: -9999px;
+      }
+      .lead-form button {
+            width: 100%;
+            margin-top: 6px;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: var(--growth);
+            color: var(--paper-raised);
+            font-family: "Source Sans 3", sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+      }
+      .lead-form button:hover { opacity: 0.92; }
+      .lead-form button:disabled { opacity: 0.7; cursor: default; }
+      .form-note {
+            margin-top: 12px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--ink-faint);
+      }
+      .form-note.is-error { color: #b3432f; }
+      .form-note.is-success { color: var(--growth); }
+
+      @media (prefers-reduced-motion: reduce) {
+            .fill { animation: none; left: 0; width: 100%; opacity: 0.6; }
+            .card { animation: none; }
+      }
+    </style>
+  </head>
+  <body>
+
+      <div class="card">
+            <div class="mark" aria-hidden="true"><span>W</span></div>div>
+      
+          <div class="eyebrow">Launching soon</div>div>
+          <h1>AI, made useful for everyday life.</h1>
+          <p class="lede">We're building a place to learn AI the practical way — no jargon, no code, just skills you'll actually use. Grocery lists, family calendars, better emails, and spotting a scam call before it costs you money.</p>p>
+      
+          <div class="loader">
+                <div class="track"><div class="fill"></div>div></div>div>
+                <div class="loader-label">Building something practical &hellip;</div>div>
+          </div>div>
+      
+          <div class="lead-form">
+                <h2>Get notified at launch</h2>
+                <p class="form-sub">Tell us a bit about you and we'll reach out when doors open.</p>p>
+                <form id="leadForm" novalidate>
+                        <div class="field">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -238,6 +531,11 @@
     outline: 2px solid var(--growth);
     outline-offset: 1px;
   }
+  .field-hidden {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+  }
   .lead-form button {
     width: 100%;
     margin-top: 6px;
@@ -252,12 +550,15 @@
     cursor: pointer;
   }
   .lead-form button:hover { opacity: 0.92; }
+  .lead-form button:disabled { opacity: 0.7; cursor: default; }
   .form-note {
     margin-top: 12px;
     text-align: center;
     font-size: 0.8rem;
     color: var(--ink-faint);
   }
+  .form-note.is-error { color: #b3432f; }
+  .form-note.is-success { color: var(--growth); }
 
   @media (prefers-reduced-motion: reduce) {
     .fill { animation: none; left: 0; width: 100%; opacity: 0.6; }
@@ -295,8 +596,12 @@
           <label for="lf-work">What do you do for work?</label>
           <input type="text" id="lf-work" name="work" autocomplete="organization-title" required>
         </div>
-        <button type="submit">Notify me at launch</button>
-        <p class="form-note" id="lf-note">This opens your email app to send your details straight to us.</p>
+        <div class="field field-hidden" aria-hidden="true">
+          <label for="lf-website">Website</label>
+          <input type="text" id="lf-website" name="company_website" tabindex="-1" autocomplete="off">
+        </div>
+        <button type="submit" id="lf-submit">Notify me at launch</button>
+        <p class="form-note" id="lf-note">We'll only email you when doors open — nothing else.</p>
       </form>
     </div>
 
@@ -314,19 +619,60 @@
   (function () {
     var form = document.getElementById('leadForm');
     var note = document.getElementById('lf-note');
+    var button = document.getElementById('lf-submit');
+    var defaultNote = note.textContent;
+
+    function setNote(text, kind) {
+      note.textContent = text;
+      note.classList.remove('is-error', 'is-success');
+      if (kind) note.classList.add(kind);
+    }
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+
       var name = document.getElementById('lf-name').value.trim();
       var email = document.getElementById('lf-email').value.trim();
       var work = document.getElementById('lf-work').value.trim();
+      var honeypot = document.getElementById('lf-website').value.trim();
+
       if (!name || !email || !work) {
-        note.textContent = 'Please fill in all three fields.';
+        setNote('Please fill in all three fields.', 'is-error');
         return;
       }
-      var subject = encodeURIComponent('New WiseAI Co waitlist signup');
-      var body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\nWork: ' + work);
-      window.location.href = 'mailto:wiseaico@gmail.com?subject=' + subject + '&body=' + body;
-      note.textContent = 'Your email app should be opening now — just hit send to reach us.';
+
+      button.disabled = true;
+      button.textContent = 'Sending…';
+      setNote('Sending your info…');
+
+      fetch('/api/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          work: work,
+          company_website: honeypot
+        })
+      })
+        .then(function (res) {
+          return res.json().catch(function () { return {}; }).then(function (data) {
+            if (!res.ok || !data.ok) {
+              throw new Error((data && data.error) || 'Something went wrong. Please try again.');
+            }
+            return data;
+          });
+        })
+        .then(function () {
+          form.reset();
+          button.textContent = "You're on the list!";
+          setNote("Thanks — we'll email you the moment doors open.", 'is-success');
+        })
+        .catch(function (err) {
+          button.disabled = false;
+          button.textContent = 'Notify me at launch';
+          setNote(err.message || 'Something went wrong. Please try again.', 'is-error');
+        });
     });
   })();
   </script>
