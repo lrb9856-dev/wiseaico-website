@@ -292,6 +292,27 @@
     margin: 0;
   }
   .deal-banner .deal-copy strong { color: var(--accent-ink); }
+  .deal-banner .preorder-cta {
+    margin-top: 14px;
+    padding: 10px 22px;
+    border: none;
+    border-radius: 8px;
+    background: var(--accent-ink);
+    color: var(--paper-raised);
+    font-family: "Source Sans 3", sans-serif;
+    font-weight: 600;
+    font-size: 0.88rem;
+    cursor: pointer;
+  }
+  .deal-banner .preorder-cta:hover { opacity: 0.92; }
+  .deal-banner .preorder-note {
+    margin-top: 10px;
+    font-size: 0.78rem;
+  }
+  .deal-banner .preorder-note.is-cancelled { color: var(--ink-faint); }
+  .preorder-form button { background: var(--accent-ink); }
+  .preorder-form .form-note.is-error { color: #b3432f; }
+  .preorder-form .form-note.is-success { color: var(--growth); }
 
   .fine-print {
     margin-top: 22px;
@@ -318,6 +339,37 @@
     <div class="deal-banner">
       <span class="deal-tag">🎁 Preorder deal</span>
       <p class="deal-copy">Buy 6 months of <strong>Unlimited All-Access</strong>, get 6 months <strong>free</strong> — a full year for $222 when you're on the list before doors open.</p>
+      <button type="button" class="preorder-cta" id="preorderToggle">Preorder now — $222</button>
+      <p class="preorder-note" id="preorderNote" hidden></p>
+    </div>
+
+    <div class="lead-form preorder-form" id="preorderForm" hidden>
+      <h2>Create your account</h2>
+      <p class="form-sub">This is the account you'll use to sign in once doors open — make sure the email is one you check.</p>
+      <form id="preorderSignupForm" novalidate>
+        <div class="field">
+          <label for="po-name">Name</label>
+          <input type="text" id="po-name" name="name" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="po-email">Email</label>
+          <input type="email" id="po-email" name="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="po-password">Password</label>
+          <input type="password" id="po-password" name="password" autocomplete="new-password" minlength="8" required>
+        </div>
+        <div class="field">
+          <label for="po-password2">Confirm password</label>
+          <input type="password" id="po-password2" name="password2" autocomplete="new-password" minlength="8" required>
+        </div>
+        <div class="field field-hidden" aria-hidden="true">
+          <label for="po-website">Website</label>
+          <input type="text" id="po-website" name="company_website" tabindex="-1" autocomplete="off">
+        </div>
+        <button type="submit" id="po-submit">Continue to payment — $222</button>
+        <p class="form-note" id="po-note">You'll pay on Stripe's secure checkout. Nothing is charged until you confirm there.</p>
+      </form>
     </div>
 
     <div class="loader">
@@ -418,6 +470,97 @@
           button.disabled = false;
           button.textContent = 'Notify me at launch';
           setNote(err.message || 'Something went wrong. Please try again.', 'is-error');
+        });
+    });
+  })();
+
+  (function () {
+    var toggleBtn = document.getElementById('preorderToggle');
+    var form = document.getElementById('preorderForm');
+    var note = document.getElementById('preorderNote');
+    var signupForm = document.getElementById('preorderSignupForm');
+    var submitBtn = document.getElementById('po-submit');
+    var poNote = document.getElementById('po-note');
+    var poNoteDefault = poNote.textContent;
+
+    function setPoNote(text, kind) {
+      poNote.textContent = text;
+      poNote.classList.remove('is-error', 'is-success');
+      if (kind) poNote.classList.add(kind);
+    }
+
+    // If Stripe sent them back after cancelling checkout, say so and reopen the form.
+    var params = new URLSearchParams(window.location.search);
+    if (params.get('preorder') === 'cancelled') {
+      note.textContent = "Checkout was cancelled — you weren't charged. Ready when you are.";
+      note.classList.add('is-cancelled');
+      note.hidden = false;
+      form.hidden = false;
+    }
+
+    toggleBtn.addEventListener('click', function () {
+      form.hidden = !form.hidden;
+      if (!form.hidden) {
+        form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        document.getElementById('po-name').focus();
+      }
+    });
+
+    signupForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      var name = document.getElementById('po-name').value.trim();
+      var email = document.getElementById('po-email').value.trim();
+      var password = document.getElementById('po-password').value;
+      var password2 = document.getElementById('po-password2').value;
+      var honeypot = document.getElementById('po-website').value.trim();
+
+      if (!name || !email) {
+        setPoNote('Please fill in your name and email.', 'is-error');
+        return;
+      }
+      if (password.length < 8) {
+        setPoNote('Password must be at least 8 characters.', 'is-error');
+        return;
+      }
+      if (password !== password2) {
+        setPoNote("Passwords don't match.", 'is-error');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Setting up your account…';
+      setPoNote('Setting up your account…');
+
+      fetch('/api/preorder/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          password: password,
+          company_website: honeypot
+        })
+      })
+        .then(function (res) {
+          return res.json().catch(function () { return {}; }).then(function (data) {
+            if (!res.ok || !data.ok) {
+              throw new Error((data && data.error) || 'Something went wrong. Please try again.');
+            }
+            return data;
+          });
+        })
+        .then(function (data) {
+          if (!data.url) {
+            throw new Error('Something went wrong starting checkout. Please try again.');
+          }
+          setPoNote('Redirecting you to secure checkout…', 'is-success');
+          window.location.href = data.url;
+        })
+        .catch(function (err) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Continue to payment — $222';
+          setPoNote(err.message || 'Something went wrong. Please try again.', 'is-error');
         });
     });
   })();

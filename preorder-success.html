@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WiseAI Co — You're Locked In</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232f6650'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='34' font-weight='600' fill='%23f8f9f6' text-anchor='middle'%3EW%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Source+Sans+3:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --paper: #eef1ec;
+    --paper-raised: #f8f9f6;
+    --ink: #1f2e2b;
+    --ink-soft: #52605a;
+    --ink-faint: #8b968f;
+    --accent: #a3711f;
+    --accent-ink: #7a5417;
+    --accent-soft-bg: #f2e9d4;
+    --growth: #2f6650;
+    --border: rgba(31, 46, 43, 0.14);
+    --shadow: 0 1px 2px rgba(31, 46, 43, 0.06), 0 8px 24px -12px rgba(31, 46, 43, 0.18);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #12201c;
+      --paper-raised: #182a24;
+      --ink: #eae7dd;
+      --ink-soft: #a9b6ae;
+      --ink-faint: #6d7d75;
+      --accent: #dcaa55;
+      --accent-ink: #f0c274;
+      --accent-soft-bg: rgba(220, 170, 85, 0.13);
+      --growth: #67b696;
+      --border: rgba(234, 231, 221, 0.14);
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 28px -14px rgba(0, 0, 0, 0.5);
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .card {
+    width: 100%;
+    max-width: 480px;
+    text-align: center;
+    background: var(--paper-raised);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 40px 32px;
+    box-shadow: var(--shadow);
+  }
+  .badge {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: var(--growth);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+  }
+  h1 {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 600;
+    font-size: 1.6rem;
+    margin: 0 0 14px;
+  }
+  p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin: 0 0 14px;
+  }
+  .details {
+    margin-top: 20px;
+    padding: 16px 18px;
+    border-radius: 10px;
+    background: var(--accent-soft-bg);
+    text-align: left;
+    font-size: 0.9rem;
+    color: var(--ink);
+  }
+  a.home {
+    display: inline-block;
+    margin-top: 22px;
+    color: var(--growth);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  a.home:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="badge">🎉</div>
+    <h1>You're locked in!</h1>
+    <p>Your preorder is confirmed — 12 months of Unlimited All-Access for $222, paid in full. We'll email you the moment doors open with instructions to sign in with the account you just created.</p>
+    <div class="details">
+      Save your login for launch day: use the <strong>email and password</strong> you just set. That's how you'll access your subscription once WiseAI Co goes live — no separate signup needed.
+    </div>
+    <a class="home" href="/">&larr; Back to WiseAI Co</a>
+  </div>
+</body>
+</html>
